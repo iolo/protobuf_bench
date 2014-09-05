@@ -13,8 +13,6 @@ iMac Late 2012, OS X 10.9.4
 - CPU: 2.9 GHz Intel Core i5
 - RAM: 8G 1600 MHz DDR3
 
-# Tests #
-
 ## sample proto ##
 
 	package packet;
@@ -33,8 +31,6 @@ iMac Late 2012, OS X 10.9.4
 	    required Category category = 1;
 	    optional string message = 2;
 	    optional int32 code = 3;
-
-	    // for redirecting
 	    optional string reserved = 4;
 	}
 
