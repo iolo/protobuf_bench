@@ -26,84 +26,72 @@ var protocol_buffers = require('protocol-buffers');
 var pb3 = protocol_buffers(fs.readFileSync('packet.proto'));
 // console.log(pb3);
 
-var json = {
-    id: 123456789,
-    error: {
-        category: 500,
-        message: "invalid protocol buffer",
-        code: -100
-    },
-    account: {
+function run(itemCount) {
+
+    itemCount = itemCount || 0;
+
+    var items = [];
+    for(var i = 0 ; i < itemCount ; i++) {
+        items.push({
+            id: i + 1,
+            category: 'weapon',
+            count: i + 1,
+        });
+    }
+
+    var json = {
         id: 123456789,
-        userID: 'who@gmail.com',
-        // values: [
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        //     1,2,3,4,5,6,7,8,9,10,
-        // ],
-        // a: 11111,
-        // b: 222,
-        // c: 33,
-        // d: 44,
-        // e: 55,
-        // f: 66,
-        // g: 7
-    },
-    accessToken: "12345678901234567890"
-};
+        error: {
+            category: 500,
+            message: "invalid protocol buffer",
+            code: -100
+        },
+        account: {
+            id: 123456789,
+            userID: 'who@gmail.com',
+        },
+        accessToken: "12345678901234567890",
+        items: items,
+    };
 
-var pbuf = new pb.LoginResponse({
-    id: json.id,
-    error: new pb.Error(json.error),
-    account: new pb.Account(json.account),
-    accessToken: json.accessToken,
-});
-
-console.log('length:', 'JSON=', JSON.stringify(json).length, "protobuf=", pbuf.encodeNB().length);
-
-//
-var suite = new Benchmark.Suite();
-suite.add('JSON', function() {
-    JSON.parse(JSON.stringify(json));
-})
-.add('ProtoBuf.js', function() {
-    pb.LoginResponse.decode(pbuf.encodeNB());
-})
-.add('protobuf', function() {
-    LoginResponse.parse(LoginResponse.serialize(json));
-})
-.add('node-protobuf', function() {
-    npb.parse(npb.serialize(json, "packet.LoginResponse"), "packet.LoginResponse");
-})
-.add('protocol-buffers', function() {
-    pb3.LoginResponse.decode(pb3.LoginResponse.encode(json));
-})
-.on('complete', function() {
-    this.forEach(function(bench) {
-        console.log(bench.toString());
+    var pbuf = new pb.LoginResponse({
+        id: json.id,
+        error: new pb.Error(json.error),
+        account: new pb.Account(json.account),
+        accessToken: json.accessToken,
+        items: items.map(function(item) { return new pb.Item(item); }),
     });
-})
-.run();
 
-// .run({ async: true });
+    console.log('#items: ', itemCount);
+    console.log('JSON: ', JSON.stringify(json).length, 'bytes');
+    console.log('protobuf: ', pbuf.encodeNB().length, 'bytes');
+
+    //
+    var suite = new Benchmark.Suite();
+    suite.add('JSON', function() {
+        JSON.parse(JSON.stringify(json));
+    })
+    .add('ProtoBuf.js', function() {
+        pb.LoginResponse.decode(pbuf.encodeNB());
+    })
+    .add('protobuf', function() {
+        LoginResponse.parse(LoginResponse.serialize(json));
+    })
+    .add('node-protobuf', function() {
+        npb.parse(npb.serialize(json, "packet.LoginResponse"), "packet.LoginResponse");
+    })
+    .add('protocol-buffers', function() {
+        pb3.LoginResponse.decode(pb3.LoginResponse.encode(json));
+    })
+    .on('complete', function() {
+        this.forEach(function(bench) {
+            console.log(bench.toString());
+        });
+    })
+    .run();
+    // .run({ async: true });
+}
+
+for(var i = 0 ; i < 1000 ; i += 100) {
+    run(i);
+}

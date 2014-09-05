@@ -1,5 +1,5 @@
 
-ñ
+Ä
 packet.protopacket"˚
 Error(
 category (2.packet.Error.Category
@@ -15,24 +15,20 @@ BadRequestê
 	AuthErrorë
 InvalidProtocolí
 ServerErrorÙ
-MaintenanceError˜"p
+MaintenanceError˜"ç
 LoginResponse
 
 id (
 error (2.packet.Error 
 account (2.packet.Account
-accessToken (	"ç
+accessToken (	
+items (2.packet.Item"%
 Account
 
 id (
-userID (	
-values (	
-a (	
-b (	
-c (	
-d (	
-e (	
-f	 (	
-g
- (	
-h (
+userID (	"3
+Item
+
+id (
+category (	
+count (
