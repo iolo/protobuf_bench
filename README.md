@@ -15,6 +15,50 @@ iMac Late 2012, OS X 10.9.4
 
 # Tests #
 
+## sample proto ##
+
+	package packet;
+
+	message Error {
+	    enum Category {
+	        OK                  = 200;
+	        GameError           = 205;
+	        VersionError        = 302;
+	        BadRequest          = 400;
+	        AuthError           = 401;
+	        InvalidProtocol     = 402;
+	        ServerError         = 500;
+	        MaintenanceError    = 503;
+	    }
+	    required Category category = 1;
+	    optional string message = 2;
+	    optional int32 code = 3;
+
+	    // for redirecting
+	    optional string reserved = 4;
+	}
+
+	message LoginResponse {
+	    required uint32 id = 1;
+	    optional Error error = 2;
+	    optional Account account = 3;
+	    optional string accessToken = 4;
+	    repeated Item items = 5;
+	}
+
+	message Account {
+	    required uint64 id = 1;
+	    required string userID = 2;
+	}
+
+	message Item {
+	    required uint64 id = 1;
+	    required string category = 2;
+	    optional uint32 count = 3;
+	}
+
+## sample JSON ##
+
     var items = [];
     for(var i = 0 ; i < itemCount ; i++) {
         items.push({
