@@ -26,6 +26,15 @@ var protocol_buffers = require('protocol-buffers');
 var pb3 = protocol_buffers(fs.readFileSync('packet.proto'));
 // console.log(pb3);
 
+// msgpack
+var msgpack = require('msgpack');
+
+// msgpack-js
+var msgpackjs = require('msgpack-js');
+
+// msgpack5
+var msgpack5 = require('msgpack5')();
+
 function run(itemCount) {
 
     itemCount = itemCount || 0;
@@ -64,7 +73,8 @@ function run(itemCount) {
 
     console.log('\n##', itemCount, 'items ##\n');
     console.log('JSON:', JSON.stringify(json).length, 'bytes');
-    console.log('protobuf:', pbuf.encodeNB().length, 'bytes\n');
+    console.log('protobuf:', pbuf.encodeNB().length, 'bytes');
+    console.log('msgpack:', msgpack.pack(json).length, 'bytes');
 
     //
     var suite = new Benchmark.Suite();
@@ -74,14 +84,23 @@ function run(itemCount) {
     .add('protocol-buffers', function() {
         pb3.LoginResponse.decode(pb3.LoginResponse.encode(json));
     })
-    .add('protobuf', function() {
+    /*.add('protobuf', function() {
         LoginResponse.parse(LoginResponse.serialize(json));
-    })
+    })*/
     .add('node-protobuf', function() {
         npb.parse(npb.serialize(json, "packet.LoginResponse"), "packet.LoginResponse");
     })
     .add('ProtoBuf.js', function() {
         pb.LoginResponse.decode(pbuf.encodeNB());
+    })
+    .add('msgpack', function() {
+        msgpack.unpack(msgpack.pack(json));
+    })
+    .add('msgpackjs', function() {
+        msgpackjs.decode(msgpackjs.encode(json));
+    })
+    .add('msgpack5', function() {
+        msgpack5.decode(msgpack5.encode(json));
     })
     .on('complete', function() {
         this.forEach(function(bench) {

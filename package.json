@@ -11,6 +11,9 @@
   "dependencies": {
     "benchmark": "^1.0.0",
     "debug": "^2.0.0",
+    "msgpack": "^0.2.4",
+    "msgpack-js": "^0.3.0",
+    "msgpack5": "^1.1.1",
     "node-protobuf": "^1.2.0",
     "protobuf": "^0.11.0",
     "protobufjs": "^3.6.0",
