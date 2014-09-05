@@ -62,17 +62,17 @@ function run(itemCount) {
         items: items.map(function(item) { return new pb.Item(item); }),
     });
 
-    console.log('#items: ', itemCount);
-    console.log('JSON: ', JSON.stringify(json).length, 'bytes');
-    console.log('protobuf: ', pbuf.encodeNB().length, 'bytes');
+    console.log('\n##', itemCount, 'items ##\n');
+    console.log('JSON:', JSON.stringify(json).length, 'bytes');
+    console.log('protobuf:', pbuf.encodeNB().length, 'bytes\n');
 
     //
     var suite = new Benchmark.Suite();
     suite.add('JSON', function() {
         JSON.parse(JSON.stringify(json));
     })
-    .add('ProtoBuf.js', function() {
-        pb.LoginResponse.decode(pbuf.encodeNB());
+    .add('protocol-buffers', function() {
+        pb3.LoginResponse.decode(pb3.LoginResponse.encode(json));
     })
     .add('protobuf', function() {
         LoginResponse.parse(LoginResponse.serialize(json));
@@ -80,18 +80,18 @@ function run(itemCount) {
     .add('node-protobuf', function() {
         npb.parse(npb.serialize(json, "packet.LoginResponse"), "packet.LoginResponse");
     })
-    .add('protocol-buffers', function() {
-        pb3.LoginResponse.decode(pb3.LoginResponse.encode(json));
+    .add('ProtoBuf.js', function() {
+        pb.LoginResponse.decode(pbuf.encodeNB());
     })
     .on('complete', function() {
         this.forEach(function(bench) {
-            console.log(bench.toString());
+            console.log('-', bench.toString());
         });
     })
     .run();
     // .run({ async: true });
 }
 
-for(var i = 0 ; i < 1000 ; i += 100) {
+for(var i = 0 ; i <= 1000 ; i += 100) {
     run(i);
 }

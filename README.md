@@ -1,3 +1,11 @@
+## Benchmarked Modules ##
+
+- JSON (built-in)
+- [protocol-buffers](https://github.com/mafintosh/protocol-buffers)
+- [protobuf](https://github.com/chrisdew/protobuf)
+- [node-protobuf](https://github.com/fuwaneko/node-protobuf)
+- [ProtoBuf.js](https://github.com/dcodeIO/ProtoBuf.js)
+
 ## Test Platform ##
 
 iMac Late 2012, OS X 10.9.4
@@ -5,112 +13,149 @@ iMac Late 2012, OS X 10.9.4
 - CPU: 2.9 GHz Intel Core i5
 - RAM: 8G 1600 MHz DDR3
 
-## items:  0 ##
+# Tests #
 
-- JSON:  189 bytes
-- protobuf:  90 bytes
+    var items = [];
+    for(var i = 0 ; i < itemCount ; i++) {
+        items.push({
+            id: i + 1,
+            category: 'weapon',
+            count: i + 1,
+        });
+    }
 
-- JSON x 243,479 ops/sec ±0.23% (102 runs sampled)
-- ProtoBuf.js x 14,972 ops/sec ±1.56% (91 runs sampled)
-- protobuf x 44,490 ops/sec ±1.40% (97 runs sampled)
-- node-protobuf x 25,296 ops/sec ±1.10% (94 runs sampled)
-- protocol-buffers x 153,794 ops/sec ±0.48% (101 runs sampled)
+    var json = {
+        id: 123456789,
+        error: {
+            category: 500,
+            message: "invalid protocol buffer",
+            code: -100
+        },
+        account: {
+            id: 123456789,
+            userID: 'who@gmail.com',
+        },
+        accessToken: "12345678901234567890",
+        items: items,
+    };
 
-## items:  100 ##
+## 0 items ##
 
-- JSON:  4272 bytes
-- protobuf:  1490 bytes
+JSON: 189 bytes
+protobuf: 90 bytes
 
-- JSON x 8,728 ops/sec ±0.50% (99 runs sampled)
-- ProtoBuf.js x 535 ops/sec ±1.78% (90 runs sampled)
-- protobuf x 1,869 ops/sec ±0.66% (100 runs sampled)
-- node-protobuf x 1,267 ops/sec ±0.91% (99 runs sampled)
-- protocol-buffers x 6,371 ops/sec ±2.28% (95 runs sampled)
+- JSON x 237,516 ops/sec ±0.30% (100 runs sampled)
+- protocol-buffers x 155,906 ops/sec ±0.50% (94 runs sampled)
+- protobuf x 44,407 ops/sec ±1.36% (96 runs sampled)
+- node-protobuf x 25,380 ops/sec ±0.86% (93 runs sampled)
+- ProtoBuf.js x 14,862 ops/sec ±1.61% (94 runs sampled)
 
-## items:  200 ##
+## 100 items ##
 
-- JSON:  8572 bytes
-- protobuf:  3036 bytes
+JSON: 4272 bytes
+protobuf: 1490 bytes
 
-- JSON x 4,257 ops/sec ±0.96% (98 runs sampled)
-- ProtoBuf.js x 273 ops/sec ±1.89% (86 runs sampled)
-- protobuf x 960 ops/sec ±0.42% (98 runs sampled)
-- node-protobuf x 604 ops/sec ±4.72% (90 runs sampled)
-- protocol-buffers x 3,283 ops/sec ±0.49% (99 runs sampled)
+- JSON x 9,098 ops/sec ±0.68% (102 runs sampled)
+- protocol-buffers x 6,599 ops/sec ±0.13% (100 runs sampled)
+- protobuf x 1,866 ops/sec ±0.52% (98 runs sampled)
+- node-protobuf x 1,293 ops/sec ±0.41% (99 runs sampled)
+- ProtoBuf.js x 530 ops/sec ±2.05% (89 runs sampled)
 
-## items:  300 ##
+## 200 items ##
 
-- JSON:  12872 bytes
-- protobuf:  4636 bytes
+JSON: 8572 bytes
+protobuf: 3036 bytes
 
-- JSON x 2,973 ops/sec ±0.69% (99 runs sampled)
-- ProtoBuf.js x 170 ops/sec ±3.00% (81 runs sampled)
-- protobuf x 623 ops/sec ±0.45% (97 runs sampled)
-- node-protobuf x 427 ops/sec ±0.39% (93 runs sampled)
-- protocol-buffers x 2,144 ops/sec ±0.61% (98 runs sampled)
+- JSON x 4,673 ops/sec ±0.53% (101 runs sampled)
+- protocol-buffers x 3,335 ops/sec ±0.26% (101 runs sampled)
+- protobuf x 959 ops/sec ±0.43% (98 runs sampled)
+- node-protobuf x 676 ops/sec ±0.32% (98 runs sampled)
+- ProtoBuf.js x 274 ops/sec ±1.79% (87 runs sampled)
 
-## items:  400 ##
+## 300 items ##
 
-- JSON:  17172 bytes
-- protobuf:  6236 bytes
+JSON: 12872 bytes
+protobuf: 4636 bytes
 
-- JSON x 1,964 ops/sec ±0.51% (97 runs sampled)
-- ProtoBuf.js x 129 ops/sec ±2.28% (76 runs sampled)
-- protobuf x 469 ops/sec ±0.34% (97 runs sampled)
-- node-protobuf x 317 ops/sec ±0.49% (88 runs sampled)
-- protocol-buffers x 1,658 ops/sec ±0.44% (96 runs sampled)
+- JSON x 2,867 ops/sec ±0.49% (99 runs sampled)
+- protocol-buffers x 1,876 ops/sec ±0.13% (101 runs sampled)
+- protobuf x 655 ops/sec ±0.51% (98 runs sampled)
+- node-protobuf x 453 ops/sec ±0.28% (97 runs sampled)
+- ProtoBuf.js x 186 ops/sec ±1.73% (82 runs sampled)
 
-## items:  500 ##
+## 400 items ##
 
-- JSON:  21472 bytes
-- protobuf:  7836 bytes
+JSON: 17172 bytes
+protobuf: 6236 bytes
 
-- JSON x 1,758 ops/sec ±0.47% (99 runs sampled)
-- ProtoBuf.js x 106 ops/sec ±2.13% (80 runs sampled)
-- protobuf x 379 ops/sec ±0.47% (95 runs sampled)
-- node-protobuf x 257 ops/sec ±0.43% (90 runs sampled)
-- protocol-buffers x 1,349 ops/sec ±0.37% (98 runs sampled)
+- JSON x 2,353 ops/sec ±0.26% (98 runs sampled)
+- protocol-buffers x 1,778 ops/sec ±0.35% (101 runs sampled)
+- protobuf x 489 ops/sec ±0.52% (95 runs sampled)
+- node-protobuf x 342 ops/sec ±0.38% (94 runs sampled)
+- ProtoBuf.js x 124 ops/sec ±5.45% (72 runs sampled)
 
-## items:  600 ##
+## 500 items ##
 
-- JSON:  25772 bytes
-- protobuf:  9436 bytes
+JSON: 21472 bytes
+protobuf: 7836 bytes
 
-- JSON x 1,514 ops/sec ±0.50% (100 runs sampled)
-- ProtoBuf.js x 89.20 ops/sec ±1.92% (78 runs sampled)
-- protobuf x 327 ops/sec ±1.42% (95 runs sampled)
-- node-protobuf x 227 ops/sec ±0.24% (92 runs sampled)
-- protocol-buffers x 1,132 ops/sec ±0.29% (100 runs sampled)
+- JSON x 1,861 ops/sec ±0.58% (101 runs sampled)
+- protocol-buffers x 1,269 ops/sec ±0.21% (99 runs sampled)
+- protobuf x 395 ops/sec ±0.49% (93 runs sampled)
+- node-protobuf x 275 ops/sec ±0.43% (96 runs sampled)
+- ProtoBuf.js x 113 ops/sec ±1.88% (74 runs sampled)
 
-## items:  700 ##
+## 600 items ##
 
-- JSON:  30072 bytes
-- protobuf:  11036 bytes
+JSON: 25772 bytes
+protobuf: 9436 bytes
 
-- JSON x 1,361 ops/sec ±0.60% (101 runs sampled)
-- ProtoBuf.js x 77.63 ops/sec ±2.05% (69 runs sampled)
-- protobuf x 287 ops/sec ±0.44% (94 runs sampled)
-- node-protobuf x 197 ops/sec ±0.30% (93 runs sampled)
-- protocol-buffers x 1,026 ops/sec ±0.25% (101 runs sampled)
+- JSON x 1,503 ops/sec ±0.38% (99 runs sampled)
+- protocol-buffers x 1,157 ops/sec ±0.44% (98 runs sampled)
+- protobuf x 333 ops/sec ±0.43% (94 runs sampled)
+- node-protobuf x 229 ops/sec ±0.48% (92 runs sampled)
+- ProtoBuf.js x 94.07 ops/sec ±2.03% (71 runs sampled)
 
-## items:  800 ##
+## 700 items ##
 
-- JSON:  34372 bytes
-- protobuf:  12636 bytes
+JSON: 30072 bytes
+protobuf: 11036 bytes
 
-- JSON x 1,092 ops/sec ±0.47% (100 runs sampled)
-- ProtoBuf.js x 68.48 ops/sec ±1.91% (73 runs sampled)
-- protobuf x 250 ops/sec ±0.46% (94 runs sampled)
-- node-protobuf x 170 ops/sec ±0.47% (89 runs sampled)
-- protocol-buffers x 748 ops/sec ±0.96% (97 runs sampled)
+- JSON x 1,252 ops/sec ±0.62% (97 runs sampled)
+- protocol-buffers x 903 ops/sec ±0.36% (100 runs sampled)
+- protobuf x 288 ops/sec ±0.42% (94 runs sampled)
+- node-protobuf x 196 ops/sec ±0.35% (93 runs sampled)
+- ProtoBuf.js x 79.55 ops/sec ±1.94% (70 runs sampled)
 
-## items:  900 ##
+## 800 items ##
 
-- JSON:  38672 bytes
-- protobuf:  14236 bytes
+JSON: 34372 bytes
+protobuf: 12636 bytes
 
-- JSON x 1,049 ops/sec ±0.60% (96 runs sampled)
-- ProtoBuf.js x 61.56 ops/sec ±1.95% (66 runs sampled)
-- protobuf x 219 ops/sec ±0.49% (89 runs sampled)
-- node-protobuf x 152 ops/sec ±0.33% (88 runs sampled)
-- protocol-buffers x 730 ops/sec ±0.40% (97 runs sampled)
+- JSON x 1,186 ops/sec ±0.68% (99 runs sampled)
+- protocol-buffers x 847 ops/sec ±0.15% (100 runs sampled)
+- protobuf x 249 ops/sec ±0.45% (93 runs sampled)
+- node-protobuf x 171 ops/sec ±0.46% (89 runs sampled)
+- ProtoBuf.js x 68.51 ops/sec ±2.09% (73 runs sampled)
+
+## 900 items ##
+
+JSON: 38672 bytes
+protobuf: 14236 bytes
+
+- JSON x 930 ops/sec ±0.77% (97 runs sampled)
+- protocol-buffers x 769 ops/sec ±0.39% (98 runs sampled)
+- protobuf x 221 ops/sec ±0.57% (89 runs sampled)
+- node-protobuf x 152 ops/sec ±0.32% (89 runs sampled)
+- ProtoBuf.js x 61.01 ops/sec ±1.98% (65 runs sampled)
+
+## 1000 items ##
+
+JSON: 42974 bytes
+protobuf: 15836 bytes
+
+- JSON x 842 ops/sec ±0.52% (100 runs sampled)
+- protocol-buffers x 630 ops/sec ±0.38% (95 runs sampled)
+- protobuf x 200 ops/sec ±0.33% (87 runs sampled)
+- node-protobuf x 137 ops/sec ±0.42% (80 runs sampled)
+- ProtoBuf.js x 55.59 ops/sec ±2.04% (60 runs sampled)
