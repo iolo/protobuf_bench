@@ -1,0 +1,54 @@
+// NOTE
+// use sint32 for negative field, not int32. (ProtoBuf.js & protobuf-net will handle differently)
+// https://github.com/dcodeIO/ProtoBuf.js/issues/122
+
+package packet;
+
+message Error {
+    enum Category {
+
+        // LOG: no problem!
+        OK                  = 200;
+        GameError           = 205;          // reload please
+
+        // redirect!
+        VersionError        = 302;          // please update!
+
+        // will be disconnected immediately
+        BadRequest          = 400;          // something wrong!
+        AuthError           = 401;          // auth failed
+        InvalidProtocol     = 402;          // hack!
+
+        // server has problems
+        ServerError         = 500;
+        MaintenanceError    = 503;          // Service Unavailable
+    }
+    required Category category  = 1;
+    optional string message     = 2;
+    optional int32 code         = 3;
+
+    // for redirecting
+    optional string reserved    = 4;
+}
+
+message LoginResponse {
+    required uint32 id          = 1;
+    optional Error error        = 2;
+    optional Account account    = 3;
+    // for next re-login
+    optional string accessToken = 4;
+}
+
+message Account {
+    required uint64 id              = 1;
+    required string userID         = 2;
+    repeated int32 values = 3;
+    optional int32 a = 4;
+    optional int32 b = 5;
+    optional int32 c = 6;
+    optional int32 d = 7;
+    optional int32 e = 8;
+    optional int32 f = 9;
+    optional int32 g = 10;
+    optional int32 h = 11;
+}

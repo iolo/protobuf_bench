@@ -1,0 +1,38 @@
+
+ñ
+packet.protopacket"˚
+Error(
+category (2.packet.Error.Category
+message (	
+code (
+reserved (	"ñ
+Category
+OK»
+	GameErrorÕ
+VersionErrorÆ
+
+BadRequestê
+	AuthErrorë
+InvalidProtocolí
+ServerErrorÙ
+MaintenanceError˜"p
+LoginResponse
+
+id (
+error (2.packet.Error 
+account (2.packet.Account
+accessToken (	"ç
+Account
+
+id (
+userID (	
+values (	
+a (	
+b (	
+c (	
+d (	
+e (	
+f	 (	
+g
+ (	
+h (
