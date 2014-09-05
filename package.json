@@ -12,6 +12,7 @@
     "benchmark": "^1.0.0",
     "debug": "^2.0.0",
     "node-protobuf": "^1.2.0",
+    "protobuf": "^0.11.0",
     "protobufjs": "^3.6.0",
     "protocol-buffers": "^2.3.6"
   }
